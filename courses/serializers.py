@@ -11,4 +11,5 @@ class InstrumentSerializer(serializers.ModelSerializer):
 class DepartmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Department
+        depth = 1
         fields = ('id','name','description','instruments')
