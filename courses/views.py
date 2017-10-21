@@ -3,17 +3,18 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 from rest_framework.views import APIView
-from .models import Instrument, Department
-from .serializers import InstrumentSerializer, DepartmentSerializer
+from .models import Subject, Department
+from .serializers import SubjectSerializer, DepartmentSerializer
 from rest_framework.response import Response
 
 # Create your views here.
-class InstrumentList(APIView):
+class SubjectList(APIView):
     def get(self, request, format=None):
         #instruments = Instrument.objects.select_related('department').all()
-        instruments = Instrument.objects.all()
-        print instruments[0].department.description
-        serializer = InstrumentSerializer(instruments, many=True)
+        subjects = Subject.objects.all()
+        if len(subjects) > 0:
+            print subjects[0].department.description
+        serializer = SubjectSerializer(subjects, many=True)
         return Response(serializer.data)
 
 class DepartmentList(APIView):

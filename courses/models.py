@@ -11,10 +11,10 @@ class Department(models.Model):
     def __unicode__(self):
         return self.name
 
-class Instrument(models.Model):
+class Subject(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(blank=True)
-    department = models.ForeignKey(Department, related_name='instruments', on_delete=models.CASCADE)
+    department = models.ForeignKey(Department, related_name='subject_deparment', on_delete=models.CASCADE)
 
     def __unicode__(self):
         return self.name    
