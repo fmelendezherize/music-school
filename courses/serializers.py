@@ -10,5 +10,5 @@ class DepartmentSerializer(serializers.ModelSerializer):
 class SubjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject
-        depth = 1 #show deparment object as related data. Nested Serialization
+        #depth = 1 #show deparment object as related data. Nested Serialization
         fields = ('id','name','description', 'department')
