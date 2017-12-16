@@ -39,8 +39,6 @@ class Profile(AbstractBaseUser):
                                  choices=type_account,
                                  default='S')
     email = models.EmailField(unique=True)
-    names = models.CharField(max_length=200, null=True, blank=True)
-    lastnames = models.CharField(max_length=200, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
     is_admin = models.BooleanField(default=False)

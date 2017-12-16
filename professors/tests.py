@@ -24,3 +24,13 @@ class ProfessorTestCase(TestCase):
             self.fail("Not Duplicate Professors Validation Fail")
         except IntegrityError:
             pass
+
+    def test_get_professor_email_valid(self):
+        Professor.objects.create_professor(email='fmelendezherize@gmail.com', password='Pikachu32.')
+        get_professor = Professor.objects.get_professor_by_email('fmelendezherize@gmail.com')
+        self.assertNotEqual(get_professor, None)
+
+    def test_get_professor_email_invalid(self):
+        Professor.objects.create_professor(email='fmelendezherize@gmail.com', password='Pikachu32.')
+        get_professor = Professor.objects.get_professor_by_email('wrongprofessor@gmail.com')
+        self.assertEqual(get_professor, None)

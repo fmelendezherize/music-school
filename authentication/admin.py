@@ -45,7 +45,7 @@ class ProfileChangeForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('email', 'password', 'names', 'lastnames', 'user_type', 'is_admin')
+        fields = ('email', 'password', 'user_type', 'is_admin')
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
@@ -65,7 +65,7 @@ class ProfileAdmin(UserAdmin):
     list_filter = ('is_admin', 'user_type')
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('names', 'lastnames', 'user_type', )}),
+        ('Personal info', {'fields': ('user_type', )}),
         ('Permissions', {'fields': ('is_admin',)}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
