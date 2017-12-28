@@ -12,3 +12,12 @@ class ProfessorSerializer(serializers.ModelSerializer):
 class ProfessorGetSerializer(ProfessorSerializer):
     #Serializador solo para GET y simula un depth=1
     subjects = SubjectSerializer(many=True, read_only=True)
+
+class ProfessorPostSerializer(serializers.ModelSerializer):
+    email = serializers.CharField(write_only=True, required=True)
+    password = serializers.CharField(write_only=True, required=True)
+
+    class Meta:
+        model = Professor
+        fields = ('email', 'password')
+
