@@ -17,10 +17,10 @@ class ProfessorList(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = ProfessorSerializer(data=request.data)
+        serializer = ProfessorPostSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            the_response = ProfessorSerializer(serializer.save())
+            return Response(the_response.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ProfessorDetail(APIView):
@@ -51,11 +51,4 @@ class ProfessorDetail(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class ProfessorRegister(APIView):
-    def post(self, request, format=None):
-        serializer = ProfessorPostSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
