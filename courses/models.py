@@ -18,7 +18,7 @@ class Subject(models.Model):
     department = models.ForeignKey(Department, related_name='subject_deparment', on_delete=models.CASCADE)
 
     def __unicode__(self):
-        return self.name
+        return str(self.id) + ":" + self.name
 
 class Course(models.Model):
     name = models.CharField(max_length=200)

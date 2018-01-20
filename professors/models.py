@@ -10,21 +10,50 @@ class ProfessorManager(models.Manager):
     '''
     Custom Professor Manager
     '''
-    def create_professor(self, email, password):
+    def create_professor(self, email, password, idsOfSubjects):
         '''
         This action is made by the admin user. Create Professor with a mininum data.
         '''
+        'Validate Subjects'
+        if len(idsOfSubjects) < 1:
+            raise ValueError("Ids of Subjects invalid.")
+        listOfSubjects = []
+        for subjectid in idsOfSubjects:
+            try:
+                subject = Subject.objects.get(id=subjectid)
+            except Subject.DoesNotExist:
+                raise ValueError("Ids of Subjects invalid.")
+            listOfSubjects.append(subject)
+        'Create Profile'
         new_profile = Profile.objects.create_user(email=email, password=password)
         new_profile.user_type = 'P'
         new_profile.save()
+        'Create Professor'
         new_professor = Professor.objects.create(user=new_profile)
+        for subject in listOfSubjects:
+            new_professor.subjects.add(subject)
+        new_professor.save()
         return new_professor
 
     def register_professor(self, email, password, **kwargs):
         '''
         This action is made by the professor user. Complete the profile data.
         '''
-        pass
+        professor = self.get_professor_by_email(email)
+        if professor is None:
+            raise ValueError("email is invalid.")
+        account = professor.user
+        #Necesitamos validar la password :/
+        account.set_password(password)
+        professor.names = kwargs['names']
+        professor.lastnames = kwargs['lastnames']
+        professor.identification_number = kwargs['identification_number']
+        professor.phone = kwargs['phone']
+        professor.address = kwargs['address']
+        professor.skills = kwargs['skills']
+        professor.is_active = True
+        account.save()
+        professor.save()
 
     def get_professor_by_email(self, email):
         return Professor.objects.filter(user__email=email).first()

@@ -13,6 +13,7 @@ class ProfessorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Professor
+        #fields='__all__'
         #Aqui no usamos depth porque no son tan inofensivos como creiamos, afectan el POST
         fields = ('id','names','lastnames', 'identification_number', 'phone', 'address', 'skills', 'subjects', 'email') 
 

@@ -59,7 +59,7 @@
             "type": "python",
             "request": "launch",
             "stopOnEntry": true,
-            "pythonPath": "C:/Workspaces/envs/drf-env/Scripts/python.exe",
+            "pythonPath": "F:/b-m_labs/python/drf-env/Scripts/python.exe",
             "program": "${workspaceFolder}/manage.py",
             "cwd": "${workspaceFolder}",
             "args": [
