@@ -23,7 +23,22 @@ class Subject(models.Model):
 class Course(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
-    students = models.ManyToManyField(Student, related_name='courses')
+    places = model.IntegerField(default=25)
+    students_registered = models.ManyToManyField(Student, related_name='courses')
+    students_enrolled = models.ManyToManyField(Student, related_name='courses')
+
+    def register_student(student):
+        #Insert a pending student and decrease places
+        #Validar que el studiante este en otro cursos
+        pass
+    
+    def enroll_student(student):
+        #Approve a student
+        pass
+
+    def reject_student(student):
+        #Remove student and increace places
+        pass
 
     def __unicode__(self):
         return self.name

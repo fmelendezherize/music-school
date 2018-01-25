@@ -24,13 +24,45 @@ class ProfessorGetSerializer(ProfessorSerializer):
 class ProfessorPostSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField(max_length=200)
+    idofSubjects = serializers.ListField(
+        child=serializers.IntegerField()
+    )
 
     def create(self, validated_data):
         return Professor.objects.create_professor(
-            email=validated_data['email'], password=validated_data['password'])
+            email=validated_data['email'], password=validated_data['password'], 
+            idsOfSubjects=validated_data['idofSubjects'])
 
     def update(self, instance, validated_data):
         instance.email = validated_data.get('email', instance.email)
         instance.created = validated_data.get('password', instance.password)
         instance.save()
         return instance
+
+class ProfessorPutSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField(max_length=200)
+    names = serializers.CharField(max_length=200)
+    lastnames = serializers.CharField(max_length=200)
+    identification_number = serializers.CharField(max_length=40)
+    phone = serializers.CharField(max_length=100)
+    address = serializers.CharField(max_length=40)
+    skills = serializers.CharField(max_length=200)
+
+    def create(self, validated_data):
+        return Professor.objects.register_professor(email=validated_data['email'], password=validated_data['password'],
+               names=validated_data['names'], lastnames=validated_data['lastnames'], identification_number=validated_data['identification_number'],
+               phone=validated_data['phone'], address=validated_data['address'], skills=validated_data['skills'])
+
+    def update(self, instance, validated_data):
+        # instance.email = validated_data.get('email', instance.email)
+        # instance.password = validated_data.get('password', instance.password)
+        # instance.names = validated_data.get('names', instance.names)
+        # instance.lastnames = validated_data.get('lastnames', instance.lastnames)
+        # instance.identification_number = validated_data.get('identification_number', instance.identification_number)
+        # instance.phone = validated_data.get('phone', instance.phone)
+        # instance.address = validated_data.get('address', instance.address)
+        # instance.skills = validated_data.get('skills', instance.skills)
+        # instance.save()
+        # return instance
+        pass

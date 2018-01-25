@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from rest_framework.views import APIView
 from .models import Professor
-from .serializers import ProfessorSerializer, ProfessorGetSerializer, ProfessorPostSerializer
+from .serializers import ProfessorSerializer, ProfessorGetSerializer, ProfessorPostSerializer, ProfessorPutSerializer
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -45,10 +45,9 @@ class ProfessorDetail(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def put(self, request, pk, format=None):
-        professor = self.get_object(pk)
-        serializer = ProfessorSerializer(professor, data=request.data)
+        serializer = ProfessorPutSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
+            return Response(status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     

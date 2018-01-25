@@ -14,6 +14,11 @@ class StudentManager(models.Manager):
         student = Student()
         student.user = user
         student.names = kwargs['names']
+        student.lastnames = kwargs['lastnames']
+        student.identification_number = kwargs['identification_number']
+        student.phone = kwargs['phone']
+        student.address = kwargs['address']
+        student.date_birth = kwargs['date_birth']
         student.full_clean()
         student.save()
         return student
@@ -28,7 +33,7 @@ class Student(models.Model):
     identification_number = models.CharField(max_length=20)
     phone = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
-    date_birth = models.DateField(default=date.today)
+    date_birth = models.DateField()
     user = models.OneToOneField(Profile, on_delete=models.CASCADE)
 
     objects = StudentManager()

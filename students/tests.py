@@ -9,8 +9,13 @@ class StudentTestCase(TestCase):
 
     def test_create_student(self):
         my_student = Student.objects.create_student(
-            email='fmelendezherize@gmail.com',
+            email='carlos@gmail.com',
             password='Pikachu32.',
-            names='Francisco')
+            names='Carlos',
+            lastnames='Barranco',
+            identification_number='123456',
+            phone='555-555-1',
+            address='Av Venezuela Cardenalito',
+            date_birth='2018-05-25')
         print my_student
         self.assertNotEqual(my_student, None)

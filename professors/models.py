@@ -14,7 +14,7 @@ class ProfessorManager(models.Manager):
         '''
         This action is made by the admin user. Create Professor with a mininum data.
         '''
-        'Validate Subjects'
+        #Validate Subjects
         if len(idsOfSubjects) < 1:
             raise ValueError("Ids of Subjects invalid.")
         listOfSubjects = []
@@ -24,11 +24,11 @@ class ProfessorManager(models.Manager):
             except Subject.DoesNotExist:
                 raise ValueError("Ids of Subjects invalid.")
             listOfSubjects.append(subject)
-        'Create Profile'
+        #Create Profile
         new_profile = Profile.objects.create_user(email=email, password=password)
         new_profile.user_type = 'P'
         new_profile.save()
-        'Create Professor'
+        #Create Professor
         new_professor = Professor.objects.create(user=new_profile)
         for subject in listOfSubjects:
             new_professor.subjects.add(subject)
@@ -54,6 +54,7 @@ class ProfessorManager(models.Manager):
         professor.is_active = True
         account.save()
         professor.save()
+        return professor
 
     def get_professor_by_email(self, email):
         return Professor.objects.filter(user__email=email).first()
