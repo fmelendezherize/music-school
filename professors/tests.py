@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.test import TestCase
 from django.db import IntegrityError
 from .models import Professor
-from courses.models import Subject, Department
+from .models import Subject, Department
 from authentication.models import Profile
 
 # Create your tests here.

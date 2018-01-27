@@ -1,6 +1,18 @@
 from rest_framework import serializers
 from .models import Professor
-from courses.serializers import SubjectSerializer, DepartmentSerializer
+from .models import Subject, Department
+
+class DepartmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Department
+        depth = 1
+        fields = ('id','name','description','subject_deparment')
+
+class SubjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subject
+        #depth = 1 #show deparment object as related data. Nested Serialization
+        fields = ('id','name','description', 'department')
 
 class UserSerializer(serializers.Serializer):
     email = serializers.EmailField(read_only=True)
