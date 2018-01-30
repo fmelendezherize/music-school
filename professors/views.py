@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 from rest_framework.views import APIView
-from .models import Professor
+from .models import Professor, Subject, Department
 from .serializers import SubjectSerializer, DepartmentSerializer
 from .serializers import ProfessorSerializer, ProfessorGetSerializer, ProfessorPostSerializer, ProfessorPutSerializer
 from rest_framework.response import Response
