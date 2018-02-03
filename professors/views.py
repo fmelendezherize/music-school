@@ -2,12 +2,14 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
+from django.http import Http404
 from rest_framework.views import APIView
-from .models import Professor, Subject, Department
-from .serializers import SubjectSerializer, DepartmentSerializer
-from .serializers import ProfessorSerializer, ProfessorGetSerializer, ProfessorPostSerializer, ProfessorPutSerializer
 from rest_framework.response import Response
 from rest_framework import status
+from .serializers import SubjectSerializer, DepartmentSerializer
+from .serializers import ProfessorSerializer, ProfessorGetSerializer, ProfessorPostSerializer, ProfessorPutSerializer
+
+from .models import Professor, Subject, Department
 
 # Create your views here.
 class SubjectList(APIView):

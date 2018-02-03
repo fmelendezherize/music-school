@@ -94,6 +94,7 @@ class CoursesTestCase(TestCase):
         #Register Student
         course1.register_student(my_student)
         course1.save()
+        #Relations
         the_student = Student.objects.get(pk=my_student.id)
         self.assertNotEqual(the_student, None)
         self.assertEqual(the_student.courses_registered.count(), 1)        

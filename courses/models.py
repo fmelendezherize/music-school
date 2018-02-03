@@ -20,6 +20,7 @@ class Course(models.Model):
     def register_student(self, student):
         #Insert a pending student and decrease places
         #Validate that the student is not registered on the same time block
+        #Validate that the student is not alredy registered
         self.students_registered.add(student)
         if self.places == 0:
             raise ValueError("No more places in course. Sorry")
@@ -31,7 +32,7 @@ class Course(models.Model):
         self.students_registered.remove(student)
         self.students_enrolled.add(student)
 
-    def reject_student(self, student):
+    def reject_student(self, idStudent):
         #Remove student and increace places
         student = self.students_registered.get(pk=idStudent)
         self.students_registered.remove(student)
