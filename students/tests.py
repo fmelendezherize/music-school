@@ -17,5 +17,5 @@ class StudentTestCase(TestCase):
             phone='555-555-1',
             address='Av Venezuela Cardenalito',
             date_birth='2018-05-25')
-        print my_student
         self.assertNotEqual(my_student, None)
+        print "create student"

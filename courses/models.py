@@ -18,12 +18,23 @@ class Course(models.Model):
     students_enrolled = models.ManyToManyField(Student, related_name='courses_enrolled')
 
     def register_student(self, student):
-        #Insert a pending student and decrease places
+        #Validate that is not already registered here
+        if self.students_registered.filter(pk=student.id).exists():
+            raise ValueError("Student already registered")
+        if self.students_enrolled.filter(pk=student.id).exists():
+            raise ValueError("Student already registered")
         #Validate that the student is not registered on the same time block
-        #Validate that the student is not alredy registered
+        if student.courses_registered.filter(block1=self.block1).exists() or \
+            student.courses_enrolled.filter(block1=self.block1).exists():
+            raise ValueError("The Student has already ocuppied this block with another course")
+        if student.courses_registered.filter(block2=self.block2).exists() or \
+            student.courses_enrolled.filter(block2=self.block2).exists():
+            raise ValueError("The Student has already ocuppied this block with another course")
+        #Regiser
         self.students_registered.add(student)
         if self.places == 0:
             raise ValueError("No more places in course. Sorry")
+        #Insert a pending student and decrease places
         self.places = self.places - 1
     
     def enroll_student(self, idStudent):

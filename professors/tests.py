@@ -20,6 +20,7 @@ class ProfessorTestCase(TestCase):
             email='fmelendezherize@gmail.com', password='Pikachu32.', idsOfSubjects=[subject1.id, subject2.id])
         self.assertNotEqual(my_professor, None)
         self.assertEqual(my_professor.subjects.count(), 2)
+        print "create professor"
 
     def test_create_duplicate_professor(self):
         try:
@@ -31,7 +32,7 @@ class ProfessorTestCase(TestCase):
                 email='fmelendezherize@gmail.com', password='Pikachu12.', idsOfSubjects=[subject1.id])
             self.fail("Not Duplicate Professors Validation Fail")
         except IntegrityError:
-            pass
+            print "create duplicate professor"
 
     def test_get_professor_email_valid(self):
         department = Department.objects.create(name='Cuerdas')
@@ -40,6 +41,7 @@ class ProfessorTestCase(TestCase):
             email='fmelendezherize@gmail.com', password='Pikachu32.', idsOfSubjects=[subject1.id])
         get_professor = Professor.objects.get_professor_by_email('fmelendezherize@gmail.com')
         self.assertNotEqual(get_professor, None)
+        print "get professor email valid"
 
     def test_get_professor_email_invalid(self):
         department = Department.objects.create(name='Cuerdas')
@@ -48,6 +50,7 @@ class ProfessorTestCase(TestCase):
             email='fmelendezherize@gmail.com', password='Pikachu32.', idsOfSubjects=[subject1.id])
         get_professor = Professor.objects.get_professor_by_email('wrongprofessor@gmail.com')
         self.assertEqual(get_professor, None)
+        print "get professor email invalid"
 
     def test_check_professor_password(self):
         department = Department.objects.create(name='Cuerdas')
@@ -57,6 +60,7 @@ class ProfessorTestCase(TestCase):
         profile = Profile.objects.get(email='fmelendezherize@gmail.com')
         self.assertNotEqual(profile, None)
         self.assertEqual(profile.check_password('Pikachu32.'), True)
+        print "check professor password"
 
     def test_register_professor(self):
         department = Department.objects.create(name='Cuerdas')
@@ -72,3 +76,4 @@ class ProfessorTestCase(TestCase):
         self.assertEqual(active_professor.is_active, True)
         profile = Profile.objects.get(email='fmelendezherize@gmail.com')
         self.assertEqual(profile.check_password('123456'), True)
+        print "register professor"        
